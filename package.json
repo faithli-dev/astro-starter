@@ -13,7 +13,11 @@
     "preview": "astro preview",
     "check": "astro check",
     "cf-typegen": "wrangler types",
-    "deploy": "astro build && wrangler deploy"
+    "deploy": "astro build && wrangler deploy",
+    "ui:list": "bearnie list",
+    "ui:add": "bearnie add",
+    "ui:diff": "bearnie diff",
+    "ui:update": "bearnie update"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",
@@ -21,11 +25,14 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.3",
     "astro-seo": "^1.2.0",
+    "clsx": "^2.1.1",
     "sitemap": "^9.0.1",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "bearnie": "^0.3.2",
     "typescript": "^7.0.2",
     "wrangler": "^4.135.0"
   }

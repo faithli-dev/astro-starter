@@ -1,6 +1,6 @@
 # Astro Starter
 
-A reusable Astro starter for Cloudflare Workers.
+Reusable Astro starter for Cloudflare Workers with a unified Bearnie-based UI system.
 
 ## Stack
 
@@ -8,12 +8,12 @@ A reusable Astro starter for Cloudflare Workers.
 - Cloudflare Workers via `@astrojs/cloudflare`
 - Tailwind CSS 4 via `@tailwindcss/vite`
 - pnpm
-- runtime sitemap via `sitemap`
+- Bearnie accessible Astro primitives
+- runtime `/sitemap.xml` via `sitemap`
 - `astro-seo`
 - `@astrojs/partytown`
-- Google Tag / GA4 support
-- TypeScript
-- Wrangler
+- Google Tag / GA4
+- TypeScript + Wrangler
 
 ## Start
 
@@ -24,7 +24,34 @@ cp .env.example .env
 pnpm dev
 ```
 
-Open the local URL printed by Astro.
+## UI architecture
+
+Bearnie is the underlying source-owned primitive layer.
+
+```text
+src/components/bearnie  # vendor primitives
+        ↓
+src/components/ui       # stable application UI API
+        ↓
+src/components/site     # composed site/product components
+        ↓
+pages
+```
+
+The starter includes Button, Card, Badge, Input, Label and Separator primitives plus Bearnie's default semantic theme.
+
+Add more primitives with:
+
+```bash
+pnpm ui:list
+pnpm ui:add dialog tabs tooltip
+pnpm ui:diff
+pnpm ui:update
+```
+
+Site code should import from `@/components/ui`, not directly from `@/components/bearnie`.
+
+See `UI.md` for the full component rules.
 
 ## Environment
 
@@ -34,108 +61,27 @@ PUBLIC_SITE_NAME=Astro Starter
 PUBLIC_GOOGLE_TAG_ID=G-XXXXXXXXXX
 ```
 
-### SITE_URL
-
-Build-time canonical origin used by Astro canonical URLs.
-
-The runtime sitemap and robots endpoints use this configured Astro site URL when available and fall back to the request origin.
-
-### PUBLIC_GOOGLE_TAG_ID
-
-Optional. Leave it blank and no Google script is rendered.
-
-When configured, Google Tag is loaded through Partytown so the third-party analytics script runs off the main thread. The Partytown config forwards `dataLayer.push`.
-
-Examples:
-
-- `G-XXXXXXXXXX` for GA4
-- `GT-XXXXXXXXXX` for Google tag
-
-This starter does not treat `GTM-XXXXXXX` as a Google Tag ID. Add a dedicated Google Tag Manager component if you specifically need a GTM container.
+Google Tag is optional. Leave `PUBLIC_GOOGLE_TAG_ID` blank to disable it.
 
 ## SEO
 
-`src/layouts/BaseLayout.astro` provides reusable defaults for:
+The base layout includes canonical URL, robots directives, Open Graph, Twitter metadata, JSON-LD and Google Tag.
 
-- title and description
-- canonical URL
-- robots directives
-- Open Graph metadata
-- Twitter cards
-- JSON-LD
-- sitemap discovery
-- optional `noindex`
-
-Example:
-
-```astro
----
-import BaseLayout from '../layouts/BaseLayout.astro';
----
-
-<BaseLayout
-  title="About"
-  description="About this website."
-  image="/og/about.jpg"
->
-  <main>...</main>
-</BaseLayout>
-```
-
-## Runtime sitemap
-
-The starter deliberately does not use `@astrojs/sitemap` as the sitemap source of truth.
-
-That official integration runs at build time and cannot enumerate dynamic SSR routes. This starter is designed for Cloudflare Worker on-demand rendering, so `/sitemap.xml` is a live server endpoint instead.
-
-Files:
+The sitemap is dynamic:
 
 ```text
-src/
-├── seo/
-│   └── sitemap.ts
-└── pages/
-    ├── sitemap.xml.ts
-    └── robots.txt.ts
+GET /sitemap.xml
 ```
 
-`src/pages/sitemap.xml.ts`:
+It runs on Cloudflare Workers and can load public URLs from D1, KV, a CMS or an API through `src/seo/sitemap.ts`.
 
-- renders on demand with `prerender = false`
-- uses the `sitemap` package for standards-compliant XML serialization
-- supports URLs loaded at request time
-- returns cache headers suitable for Cloudflare edge caching
+`/robots.txt` points to the runtime sitemap.
 
-Add static entries in `src/seo/sitemap.ts`.
-
-For dynamic URLs, implement `getDynamicSitemapEntries()`:
-
-```ts
-export async function getDynamicSitemapEntries(context) {
-  const posts = await loadPublishedPosts(context);
-
-  return posts.map((post) => ({
-    url: `/posts/${post.slug}`,
-    lastmod: post.updatedAt,
-    changefreq: 'weekly',
-    priority: 0.8,
-  }));
-}
-```
-
-The loader can query Cloudflare D1, KV, an external CMS, or an API. New published records can therefore appear in the sitemap without rebuilding the Astro app.
-
-`/robots.txt` is also rendered on demand and points to `/sitemap.xml`.
-
-## Cloudflare Worker API
-
-The starter includes:
+## Worker API
 
 ```text
 GET /api/health
 ```
-
-The route is rendered on demand by Cloudflare Workers.
 
 ## Commands
 
@@ -146,52 +92,48 @@ pnpm build
 pnpm preview
 pnpm cf-typegen
 pnpm deploy
+
+pnpm ui:list
+pnpm ui:add <component...>
+pnpm ui:diff
+pnpm ui:update
 ```
 
 ## Deploy
 
-Authenticate once:
-
 ```bash
 pnpm exec wrangler login
-```
-
-Then:
-
-```bash
 pnpm deploy
 ```
-
-Update `wrangler.jsonc` if you want to rename the Worker or add bindings such as D1, KV, R2, Queues, Durable Objects, or service bindings.
 
 ## Project structure
 
 ```text
 .
+├── bearnie.json
+├── UI.md
 ├── astro.config.mjs
 ├── wrangler.jsonc
-├── .env.example
 ├── src
 │   ├── components
+│   │   ├── bearnie
+│   │   ├── site
+│   │   ├── ui
 │   │   └── GoogleTag.astro
 │   ├── layouts
-│   │   └── BaseLayout.astro
 │   ├── pages
-│   │   ├── api
-│   │   │   └── health.ts
-│   │   ├── index.astro
-│   │   ├── robots.txt.ts
-│   │   └── sitemap.xml.ts
 │   ├── seo
-│   │   └── sitemap.ts
-│   └── styles
-│       └── global.css
+│   ├── styles
+│   │   ├── bearnie.css
+│   │   └── global.css
+│   └── utils
+│       └── cn.ts
 └── package.json
 ```
 
 ## Notes
 
-- Keep secrets out of `PUBLIC_*` environment variables.
-- Google Tag IDs are public identifiers, so `PUBLIC_GOOGLE_TAG_ID` is appropriate.
-- For Cloudflare secrets, use Wrangler secrets or Cloudflare bindings instead of committing them.
-- Dynamic sitemap data should only include canonical, public, indexable URLs.
+- Keep secrets out of `PUBLIC_*` variables.
+- Bearnie components are copied source, not hidden runtime components.
+- Run `pnpm ui:diff` before upstream updates if vendor primitives were customized.
+- Dynamic sitemap data should contain only canonical, public, indexable URLs.

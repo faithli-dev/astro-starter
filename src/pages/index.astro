@@ -1,42 +1,13 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from "@/components/site/Hero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export const prerender = true;
 ---
 
 <BaseLayout
   title="Astro Cloudflare Starter"
-  description="A clean Astro starter with Cloudflare Workers, Tailwind CSS, SEO, sitemap, Partytown, Google Tag and pnpm."
+  description="Astro starter with Cloudflare Workers, Tailwind CSS, Bearnie UI, SEO, runtime sitemap, Partytown, Google Tag and pnpm."
 >
-  <main class="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-20 lg:px-8">
-    <div class="max-w-3xl">
-      <p class="mb-5 text-sm font-medium tracking-[0.18em] text-neutral-500 uppercase">
-        Astro Starter
-      </p>
-
-      <h1 class="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-        Astro + Cloudflare + Tailwind.
-      </h1>
-
-      <p class="mt-7 max-w-2xl text-lg leading-8 text-neutral-600">
-        Production-oriented starter with reusable SEO defaults, sitemap, robots,
-        JSON-LD, Google Tag through Partytown, and a Cloudflare Worker API route.
-      </p>
-
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a
-          href="/api/health"
-          class="rounded-full bg-neutral-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-neutral-800"
-        >
-          Test /api/health
-        </a>
-        <a
-          href="https://docs.astro.build/"
-          class="rounded-full border border-neutral-300 px-5 py-3 text-sm font-medium transition hover:bg-neutral-100"
-        >
-          Astro docs
-        </a>
-      </div>
-    </div>
-  </main>
+  <Hero />
 </BaseLayout>

@@ -1,0 +1,8 @@
+{
+  "componentsDir": "src/components/bearnie",
+  "utilsDir": "src/utils",
+  "stylesDir": "src/styles",
+  "tailwindConfig": "tailwind.config.mjs",
+  "typescript": true,
+  "theme": "default"
+}
