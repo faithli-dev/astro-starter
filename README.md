@@ -137,3 +137,22 @@ pnpm deploy
 - Bearnie components are copied source, not hidden runtime components.
 - Run `pnpm ui:diff` before upstream updates if vendor primitives were customized.
 - Dynamic sitemap data should contain only canonical, public, indexable URLs.
+
+
+## AI agent setup
+
+This starter includes project-level AI development guidance:
+
+```text
+AGENTS.md
+.agents/skills/astro-project/SKILL.md
+.codex/config.toml
+```
+
+The project points Codex-compatible tooling at Astro's official Docs MCP server:
+
+```text
+https://mcp.docs.astro.build/mcp
+```
+
+The agent rules also reference Astro's official AI development guide and require current documentation checks for version-sensitive Astro behavior.
