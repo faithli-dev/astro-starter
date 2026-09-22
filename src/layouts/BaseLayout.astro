@@ -1,0 +1,84 @@
+---
+import { SEO } from 'astro-seo';
+import GoogleTag from '../components/GoogleTag.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string | URL;
+  image?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteName = import.meta.env.PUBLIC_SITE_NAME ?? 'Astro Starter';
+const site = Astro.site ?? new URL('https://example.com');
+const canonicalUrl = canonical
+  ? new URL(canonical, site).href
+  : new URL(Astro.url.pathname, site).href;
+const imageUrl = image ? new URL(image, site).href : undefined;
+const pageTitle = title.includes(siteName) ? title : title + ' | ' + siteName;
+const structuredData =
+  jsonLd ??
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: site.href,
+  };
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <SEO
+      title={pageTitle}
+      description={description}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      robotsExtras="max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteName} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+
+    <meta
+      name="twitter:card"
+      content={imageUrl ? 'summary_large_image' : 'summary'}
+    />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData)}
+    ></script>
+
+    <GoogleTag />
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <slot />
+  </body>
+</html>
