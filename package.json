@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@12.5.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -17,7 +17,11 @@
     "ui:list": "bearnie list",
     "ui:add": "bearnie add",
     "ui:diff": "bearnie diff",
-    "ui:update": "bearnie update"
+    "ui:update": "bearnie update",
+    "design:install": "impeccable install -y --providers=antigravity --scope=project",
+    "design:update": "impeccable update",
+    "design:check": "impeccable check",
+    "design:detect": "impeccable detect src/"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",
@@ -33,6 +37,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "bearnie": "^0.3.2",
+    "impeccable": "^4.1.0",
     "typescript": "^7.0.2",
     "wrangler": "^4.135.0"
   }

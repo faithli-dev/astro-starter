@@ -83,3 +83,23 @@ pnpm dlx bearnie add styles-slate-blue --overwrite
 ```
 
 Review and commit the theme change like any other design-system change.
+
+
+## Impeccable
+
+Impeccable is the design-quality layer above this component architecture.
+
+Use Impeccable to decide:
+- hierarchy;
+- information density;
+- spacing rhythm;
+- typography;
+- color relationships;
+- motion;
+- responsive behavior;
+- accessibility refinements;
+- whether an interface feels generic, noisy, unclear, or visually inconsistent.
+
+Use Bearnie to implement reusable primitives after the design decision is clear.
+
+Impeccable should not directly encourage bypassing the `@/components/ui` boundary or duplicating a Bearnie primitive.

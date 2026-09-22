@@ -30,6 +30,7 @@ When an Astro-specific implementation depends on version-sensitive behavior, ver
 - Tailwind CSS 4
 - pnpm
 - Bearnie as the underlying source-owned Astro UI primitive layer
+- Impeccable for frontend design quality
 - `astro-seo`
 - Partytown for Google Tag
 - runtime sitemap endpoint using `sitemap`
@@ -145,7 +146,6 @@ If dependencies or network access prevent validation, state that explicitly inst
 
 Keep changes DRY, typed, accessible, and consistent with the existing project architecture.
 
-
 ## Bearnie MCP
 
 Official documentation:
@@ -163,3 +163,33 @@ After Bearnie MCP adds a component:
 - review generated dependencies and runtime helpers before committing.
 
 See `.agent/references/bearnie-mcp.md` for the project-specific workflow.
+
+## Design quality: Impeccable
+
+This repository uses Impeccable for frontend design judgement and UI quality.
+
+Official documentation:
+https://impeccable.style/docs/
+
+Project skill:
+`.agent/skills/impeccable/SKILL.md`
+
+Reference:
+`.agent/references/impeccable.md`
+
+For substantial frontend UI work:
+
+1. Read existing `PRODUCT.md` and `DESIGN.md` if present.
+2. Read `UI.md`.
+3. Use the Impeccable workflow appropriate to the task.
+4. Use Bearnie for reusable primitives instead of duplicating controls.
+5. Keep application imports behind `@/components/ui`.
+6. Run `pnpm design:detect` for meaningful UI changes before completion when the environment permits.
+
+The official Impeccable build can be synchronized into the project's `.agent/` structure with:
+
+```bash
+pnpm design:install
+```
+
+Do not treat Impeccable as permission to discard an established product or design system. Preserve approved product facts, brand constraints, and existing design decisions unless the task explicitly changes them.
