@@ -28,13 +28,34 @@ https://github.com/mattpocock/skills
 - Astro 7
 - Cloudflare Workers
 - Tailwind CSS 4
-- pnpm
+- npm
 - Bearnie UI primitives
 - Impeccable design workflow
 - Matt Pocock intent/spec/TDD/review skills
 - Astro Docs MCP + Bearnie MCP
 - runtime sitemap
 - SEO + Google Tag
+
+## Package manager
+
+This starter is npm-first for maximum compatibility with standard Node.js, CI, hosting and agent environments.
+
+No Corepack setup is required.
+
+Development:
+
+```bash
+npm install
+npm run dev
+```
+
+After the first successful install, commit the generated `package-lock.json`. Once a lockfile exists, CI and deployment should use:
+
+```bash
+npm ci
+```
+
+Do not add pnpm, Yarn or Bun lockfiles unless the project intentionally changes package managers.
 
 ## Intent workflow
 
@@ -76,25 +97,40 @@ bearnie     → npx @bearnie/mcp
 ## Start
 
 ```bash
-corepack enable
-pnpm install
+npm install
 cp .env.example .env
-pnpm dev
+npm run dev
 ```
 
 ## Useful commands
 
 ```bash
-pnpm check
-pnpm build
-pnpm deploy
+npm run check
+npm run build
+npm run deploy
 
-pnpm ui:list
-pnpm ui:add <component...>
+npm run ui:list
+npm run ui:add -- dialog tabs tooltip
+npm run ui:diff
+npm run ui:update
 
-pnpm design:check
-pnpm design:update
-pnpm design:detect
+npm run design:install
+npm run design:check
+npm run design:update
+npm run design:detect
+```
+
+npm passes script arguments after `--`, for example:
+
+```bash
+npm run ui:add -- dialog tabs tooltip
+```
+
+For one-off local binaries, `npx` is also fine:
+
+```bash
+npx bearnie add styles-slate-blue --overwrite
+npx impeccable detect src/components/site/Hero.astro
 ```
 
 ## Agent structure
@@ -125,7 +161,8 @@ AGENTS.md
 
 ## Notes
 
-- Node 22.18+.
+- Node 22.18+ is required by the current design tooling.
+- npm is the canonical package manager for this starter.
 - The local Markdown spec tracker is the portable default.
 - A cloned project may switch to GitHub/GitLab/Linear later.
 - Do not let an agent silently invent missing product/design standards.

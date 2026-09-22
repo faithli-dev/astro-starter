@@ -21,14 +21,12 @@ https://mcp.docs.astro.build/mcp
 
 If the Astro Docs MCP server is available, use it for current framework questions. If it is unavailable, use the official Astro documentation directly.
 
-Do not substitute old blog posts, cached framework knowledge, or unrelated third-party examples when the official docs answer the question.
-
 ## Current project assumptions
 
 - Astro 7
 - Cloudflare Workers adapter
 - Tailwind CSS 4
-- pnpm
+- npm
 - Bearnie source-owned UI primitives
 - application UI boundary at `@/components/ui`
 - runtime `/sitemap.xml`
@@ -59,14 +57,14 @@ During implementation:
 Validation:
 
 ```bash
-pnpm check
-pnpm build
+npm run check
+npm run build
 ```
 
 For UI changes, also review:
 
 ```bash
-pnpm ui:diff
+npm run ui:diff
 ```
 
 when Bearnie vendor source has been modified.
@@ -82,8 +80,7 @@ Configured servers:
 
 Use Astro Docs for version-sensitive framework questions. Use Bearnie MCP to discover or install UI primitives before creating custom equivalents.
 
-If the active coding client does not support root `.mcp.json`, adapt the same server definitions to that client's MCP configuration format rather than substituting different documentation or component sources.
-
+If the active coding client does not support root `.mcp.json`, adapt the same server definitions to that client's MCP configuration format.
 
 ## Bearnie MCP workflow
 

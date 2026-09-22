@@ -34,16 +34,7 @@ Before committing:
 4. Stage only files that belong to the completed unit.
 5. Commit immediately before starting the next independent feature.
 
-Commit messages should describe the completed unit clearly. Prefer concise conventional prefixes when they fit:
-
-```text
-feat: add account settings form
-fix: preserve locale during redirect
-refactor: centralize sitemap entry loading
-docs: document UI component contract
-test: cover checkout validation seam
-chore: update project tooling
-```
+Commit messages should describe the completed unit clearly. Prefer concise conventional prefixes when they fit.
 
 Rules:
 
@@ -77,7 +68,7 @@ Project MCP configuration:
 - Astro 7
 - Cloudflare Workers via `@astrojs/cloudflare`
 - Tailwind CSS 4
-- pnpm
+- npm
 - Bearnie as source-owned UI primitives
 - Impeccable for frontend design quality
 - Matt Pocock alignment/spec/review skills
@@ -88,7 +79,23 @@ Project MCP configuration:
 
 ## Package manager
 
-Use pnpm. Do not introduce npm, Yarn, or Bun lockfiles.
+Use npm as the canonical package manager.
+
+```bash
+npm install
+npm run dev
+npm run check
+npm run build
+```
+
+Rules:
+
+- Do not use pnpm, Yarn or Bun unless the user explicitly changes the project package-manager policy.
+- Do not add `pnpm-lock.yaml`, `yarn.lock` or `bun.lock*`.
+- Commit `package-lock.json` after a successful `npm install`.
+- When a valid `package-lock.json` exists, prefer `npm ci` in CI/deployment.
+- Pass arguments to npm scripts after `--`, e.g. `npm run ui:add -- dialog tabs`.
+- Use `npx` for one-off local CLI invocation when a package script does not already cover it.
 
 ## UI architecture
 
@@ -138,8 +145,8 @@ The starter is i18n-ready, not multilingual by default. Do not enable locale-pre
 Before completing non-trivial work, run relevant validation such as:
 
 ```bash
-pnpm check
-pnpm build
+npm run check
+npm run build
 ```
 
 For meaningful UI work, use Impeccable detector when available.

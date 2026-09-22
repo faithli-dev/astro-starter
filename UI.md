@@ -53,18 +53,18 @@ These components compose `@/components/ui`. They must not reach directly into `@
 7. Business/product behavior belongs in site/feature components.
 8. Use `cn()` from `@/utils/cn` for class composition.
 9. Keep `@/components/ui` small and intentional; do not export all Bearnie components automatically.
-10. Run `pnpm ui:diff` before updating vendor primitives that have local changes.
+10. Run `npm run ui:diff` before updating vendor primitives that have local changes.
 
 ## CLI workflow
 
 ```bash
-pnpm ui:list
-pnpm ui:add dialog tabs tooltip
-pnpm ui:diff
-pnpm ui:update
+npm run ui:list
+npm run ui:add -- dialog tabs tooltip
+npm run ui:diff
+npm run ui:update
 ```
 
-After `pnpm ui:add <component>`, export the required primitives from `src/components/ui/index.ts` before using them elsewhere.
+After `npm run ui:add -- <component>`, export the required primitives from `src/components/ui/index.ts` before using them elsewhere.
 
 ## Theme
 
@@ -79,27 +79,17 @@ It is imported by `src/styles/global.css` after Tailwind.
 To switch theme:
 
 ```bash
-pnpm dlx bearnie add styles-slate-blue --overwrite
+npx bearnie add styles-slate-blue --overwrite
 ```
 
 Review and commit the theme change like any other design-system change.
-
 
 ## Impeccable
 
 Impeccable is the design-quality layer above this component architecture.
 
-Use Impeccable to decide:
-- hierarchy;
-- information density;
-- spacing rhythm;
-- typography;
-- color relationships;
-- motion;
-- responsive behavior;
-- accessibility refinements;
-- whether an interface feels generic, noisy, unclear, or visually inconsistent.
+Use Impeccable to decide hierarchy, information density, spacing rhythm, typography, color relationships, motion, responsive behavior, accessibility refinements, and visual consistency.
 
 Use Bearnie to implement reusable primitives after the design decision is clear.
 
-Impeccable should not directly encourage bypassing the `@/components/ui` boundary or duplicating a Bearnie primitive.
+Impeccable should not encourage bypassing the `@/components/ui` boundary or duplicating a Bearnie primitive.
