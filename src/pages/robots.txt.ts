@@ -1,10 +1,12 @@
 import type { APIRoute } from 'astro';
 
-export const prerender = true;
+export const prerender = false;
 
-export const GET: APIRoute = ({ site }) => {
-  const origin = site ?? new URL('https://example.com');
-  const sitemap = new URL('sitemap-index.xml', origin).href;
+export const GET: APIRoute = ({ request, site }) => {
+  const baseUrl =
+    site?.href.replace(/\/$/, '') ??
+    new URL(request.url).origin;
+  const sitemap = new URL('/sitemap.xml', baseUrl).href;
 
   const body = [
     'User-agent: *',
@@ -17,6 +19,8 @@ export const GET: APIRoute = ({ site }) => {
   return new Response(body, {
     headers: {
       'content-type': 'text/plain; charset=utf-8',
+      'cache-control':
+        'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400',
     },
   });
 };
