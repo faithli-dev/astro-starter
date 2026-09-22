@@ -156,3 +156,24 @@ https://mcp.docs.astro.build/mcp
 ```
 
 The agent rules reference Astro's official AI development guide and require current documentation checks for version-sensitive Astro behavior. MCP transport is configured by whichever coding agent is actually being used.
+
+
+## MCP servers
+
+The starter includes a project-level `.mcp.json` with two development MCP servers:
+
+```text
+astro-docs  → https://mcp.docs.astro.build/mcp
+bearnie     → npx @bearnie/mcp
+```
+
+Astro Docs MCP provides current Astro documentation. Bearnie MCP provides component discovery, source inspection, and component installation.
+
+References:
+
+```text
+.agent/references/astro-ai.md
+.agent/references/bearnie-mcp.md
+```
+
+The common `.mcp.json` format is the project baseline. Some clients use different MCP configuration locations or schemas; in those clients, reuse the same server definitions in the client's required format.

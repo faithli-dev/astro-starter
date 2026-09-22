@@ -13,10 +13,13 @@ For Astro framework behavior, APIs, integrations, routing, rendering, configurat
 Official AI guide:
 https://docs.astro.build/en/guides/build-with-ai/
 
-Astro Docs MCP endpoint:
-https://mcp.docs.astro.build/mcp
+Project MCP configuration:
 
-Agent-specific MCP transport/configuration should be handled by the active coding agent. This repository intentionally does not ship a vendor-specific MCP config.
+- Root config: `.mcp.json`
+- Astro Docs: https://mcp.docs.astro.build/mcp
+- Bearnie MCP: `npx @bearnie/mcp`
+
+Use the project MCP servers when the active coding agent supports the common `mcpServers` configuration format. If the active client requires its own MCP format, translate these same server definitions rather than inventing different sources.
 
 When an Astro-specific implementation depends on version-sensitive behavior, verify the current API before changing code.
 
@@ -141,3 +144,22 @@ pnpm build
 If dependencies or network access prevent validation, state that explicitly instead of claiming the build passed.
 
 Keep changes DRY, typed, accessible, and consistent with the existing project architecture.
+
+
+## Bearnie MCP
+
+Official documentation:
+https://bearnie.dev/docs/mcp/
+
+The Bearnie MCP server is configured in the project root `.mcp.json`.
+
+Use it to discover and install Bearnie primitives instead of recreating components that already exist in the registry.
+
+After Bearnie MCP adds a component:
+
+- keep generated primitives under `src/components/bearnie/`;
+- expose the required primitives through `src/components/ui/index.ts`;
+- application code must continue importing from `@/components/ui`;
+- review generated dependencies and runtime helpers before committing.
+
+See `.agent/references/bearnie-mcp.md` for the project-specific workflow.

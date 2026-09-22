@@ -14,9 +14,9 @@ Official endpoint:
 https://mcp.docs.astro.build/mcp
 ```
 
-When the active coding agent supports MCP, connect to this endpoint using that agent's own MCP configuration mechanism.
+This repository configures the endpoint in the root `.mcp.json`. When the active coding client supports the common `mcpServers` project format, it can use that configuration directly.
 
-This starter intentionally does not include a Codex-, Claude-, Cursor-, or other vendor-specific MCP configuration file.
+The root `.mcp.json` is intentionally client-light rather than Codex-specific. Clients that require a different MCP schema should translate the same server definition.
 
 ## Policy
 

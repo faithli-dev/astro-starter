@@ -73,12 +73,27 @@ when Bearnie vendor source has been modified.
 
 ## Astro Docs MCP
 
-This repository ships `.agent/references/astro-ai.md` with the official Astro AI guide and Docs MCP endpoint.
+This repository ships project-level MCP configuration in `.mcp.json`.
 
-The expected server is:
+Configured servers:
 
-```text
-https://mcp.docs.astro.build/mcp
-```
+- Astro Docs: `https://mcp.docs.astro.build/mcp`
+- Bearnie: `npx @bearnie/mcp`
 
-If the active agent supports MCP, connect using that agent's own configuration. Otherwise consult the current official Astro documentation.
+Use Astro Docs for version-sensitive framework questions. Use Bearnie MCP to discover or install UI primitives before creating custom equivalents.
+
+If the active coding client does not support root `.mcp.json`, adapt the same server definitions to that client's MCP configuration format rather than substituting different documentation or component sources.
+
+
+## Bearnie MCP workflow
+
+Before building a new reusable UI primitive:
+
+1. Use Bearnie MCP to search the registry.
+2. Prefer an existing accessible Bearnie primitive when suitable.
+3. Let Bearnie MCP install the primitive and its registry/runtime dependencies.
+4. Export the required application-facing pieces from `@/components/ui`.
+5. Use only the application UI surface from pages/features/site components.
+
+Official reference:
+https://bearnie.dev/docs/mcp/
