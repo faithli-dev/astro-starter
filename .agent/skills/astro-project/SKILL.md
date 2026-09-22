@@ -73,7 +73,7 @@ when Bearnie vendor source has been modified.
 
 ## Astro Docs MCP
 
-This repository also ships a Codex project configuration at `.codex/config.toml` that points to the official Astro Docs MCP server.
+This repository ships `.agent/references/astro-ai.md` with the official Astro AI guide and Docs MCP endpoint.
 
 The expected server is:
 
@@ -81,4 +81,4 @@ The expected server is:
 https://mcp.docs.astro.build/mcp
 ```
 
-Use current documentation retrieved through that source to resolve uncertain Astro APIs or behavior.
+If the active agent supports MCP, connect using that agent's own configuration. Otherwise consult the current official Astro documentation.

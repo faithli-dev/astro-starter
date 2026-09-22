@@ -145,14 +145,14 @@ This starter includes project-level AI development guidance:
 
 ```text
 AGENTS.md
-.agents/skills/astro-project/SKILL.md
-.codex/config.toml
+.agent/skills/astro-project/SKILL.md
+.agent/references/astro-ai.md
 ```
 
-The project points Codex-compatible tooling at Astro's official Docs MCP server:
+The project records Astro's official Docs MCP endpoint without binding the starter to a specific coding agent:
 
 ```text
 https://mcp.docs.astro.build/mcp
 ```
 
-The agent rules also reference Astro's official AI development guide and require current documentation checks for version-sensitive Astro behavior.
+The agent rules reference Astro's official AI development guide and require current documentation checks for version-sensitive Astro behavior. MCP transport is configured by whichever coding agent is actually being used.

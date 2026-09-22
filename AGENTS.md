@@ -13,8 +13,10 @@ For Astro framework behavior, APIs, integrations, routing, rendering, configurat
 Official AI guide:
 https://docs.astro.build/en/guides/build-with-ai/
 
-Astro Docs MCP:
+Astro Docs MCP endpoint:
 https://mcp.docs.astro.build/mcp
+
+Agent-specific MCP transport/configuration should be handled by the active coding agent. This repository intentionally does not ship a vendor-specific MCP config.
 
 When an Astro-specific implementation depends on version-sensitive behavior, verify the current API before changing code.
 
