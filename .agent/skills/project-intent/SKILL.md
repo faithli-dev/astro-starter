@@ -65,6 +65,8 @@ The spec is the implementation contract. Scope added later must be intentionally
 - Use Astro Docs MCP for current Astro behavior.
 - Use Impeccable for design-quality decisions.
 - Use Bearnie for reusable accessible UI primitives.
+- Work in independently reviewable vertical slices.
+- Every completed feature/slice must be committed before beginning the next one.
 
 ## Verify
 
@@ -74,5 +76,6 @@ Before declaring substantial work complete:
 2. For meaningful UI work, run Impeccable detector when available.
 3. Run `code-review`.
 4. Treat the Spec axis as the explicit check that what was built matches what the user approved.
+5. Confirm every completed feature/slice has its own Git commit.
 
 If the Spec axis finds a mismatch, fix it or bring the decision back to the user. Do not rationalize the mismatch as an implementation detail.

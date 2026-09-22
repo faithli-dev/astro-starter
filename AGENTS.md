@@ -20,6 +20,41 @@ Small, fully specified, mechanical changes do not require grilling.
 
 See `.agent/references/matt-pocock-skills.md`.
 
+## Git discipline — every completed feature must be committed
+
+A completed feature, vertical slice, bug fix, refactor, or other independently reviewable unit of work must end in its own Git commit.
+
+Do not accumulate several completed features into one large commit.
+
+Before committing:
+
+1. Confirm the feature matches the approved spec or explicit request.
+2. Run the relevant validation for that slice when available.
+3. Review the diff and remove accidental, generated, debug, or unrelated changes.
+4. Stage only files that belong to the completed unit.
+5. Commit immediately before starting the next independent feature.
+
+Commit messages should describe the completed unit clearly. Prefer concise conventional prefixes when they fit:
+
+```text
+feat: add account settings form
+fix: preserve locale during redirect
+refactor: centralize sitemap entry loading
+docs: document UI component contract
+test: cover checkout validation seam
+chore: update project tooling
+```
+
+Rules:
+
+- One independently reviewable feature/slice should normally map to one commit.
+- If a feature is too large for one understandable commit, split it into smaller vertical slices and commit each completed slice.
+- Do not mix unrelated cleanup into a feature commit.
+- Do not rewrite, squash, amend, rebase, or force-push existing user commits unless explicitly asked.
+- Never discard pre-existing user changes just to produce a clean commit.
+- A feature is not considered complete until its intended commit has been created.
+- Pushing is separate from committing: push only when the task, repository workflow, or user instruction calls for it.
+
 ## Source of truth
 
 For Astro framework behavior, APIs, integrations, routing, rendering, configuration, and current best practices:
